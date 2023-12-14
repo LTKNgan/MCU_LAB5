@@ -68,7 +68,7 @@ int parser_status = INIT;
 int message_status = INIT;
 
 int ADC_value = 0;
-char str[10];
+char str[50];
 
 void command_parser_fsm() {
 	int index;
@@ -128,7 +128,7 @@ void uart_communiation_fsm() {
 		break;
 	case SEND:
 		ADC_value = HAL_ADC_GetValue(&hadc1);
-		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r%d\r\n", ADC_value), 1000);
+		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r!ADC=%d#\r\n", ADC_value), 1000);
 		setTimer1(3000);
 		message_status = WAIT;
 		break;
