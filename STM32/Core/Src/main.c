@@ -105,17 +105,18 @@ void command_parser_fsm() {
 	// END COMMUNICATION
 	case END:
 		if (buffer[index] == 'O') parser_status = O;
+		else parser_status = _RST_;
 		break;
 	case O:
 		if (buffer[index] == 'K') parser_status = OK;
-		else parser_status = END;
+		else parser_status = _RST_;
 		break;
 	case OK:
 		if (buffer[index] == '#') {
 			message_status = INIT;
 			parser_status = INIT;
 		}
-		else parser_status = END;
+		else parser_status = _RST_;
 		break;
 	default:
 		break;
